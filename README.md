@@ -112,36 +112,36 @@ Fields:
 
 **2. Database Schema Design **
 
-Database
+    Database:
 
     retail_db
 
-    Tables
+    Tables:
 
     Customers
 
 Stores customer information.
 
 
-**Column	        Type**
-cust_id	        INT
-name	        VARCHAR
-signup_date	    DATE
+**Column	   Type**
+  cust_id	   INT
+  name	           VARCHAR
+  signup_date	   DATE
 
 **Products**
 
-Stores product catalog information.
+ Stores product catalog information.
 
 **Column	       Type**
 
     prod_id	       INT
     name	       VARCHAR
-    category	   VARCHAR
+    category	       VARCHAR
     price	       DECIMAL
 
 **Orders**
 
-Stores transactional order information.
+ Stores transactional order information.
 
  ** Column	     Type**
 
@@ -158,7 +158,7 @@ Relationships
 
 Database Optimization
 
-Indexes created:
+ Indexes created:
     idx_orders_date
     idx_products_category
 
