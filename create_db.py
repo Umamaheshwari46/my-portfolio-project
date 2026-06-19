@@ -1,19 +1,24 @@
 import psycopg2
 
+
+#connect to default postgres database
 conn = psycopg2.connect(
-    dbname="retail_db",
-    user="dev_user",
+    dbname="postgres",
+    user="postgres",
     password="0217",
     host="localhost",
     port="5432"
 )
 
+
 conn.autocommit = True
 cur = conn.cursor()
 
-cur.execute("CREATE TABLE IF NOT EXISTS test(id SERIAL PRIMARY KEY, name TEXT);")
 
-print("Connected successfully!")
+#create database
+cur.execute("CREATE DATABASE retail_db;")
+
+print("Database created successfully!")
 
 cur.close()
 conn.close()
