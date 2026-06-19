@@ -43,276 +43,441 @@ SQL Analytics Queries
 ↓
 Streamlit Dashboard
 
-**Project Components**
-1.Data Generation Module
 
-Objective
 
-Generate realistic retail datasets for analytics and reporting.
+# 🚀 Retail Data Engineering & Analytics Portfolio Project
 
-Generated Files
+## 📌 About the Project
 
-Customers Dataset
+This project is a **data engineering and analytics system** built using Python and PostgreSQL.
+It demonstrates how to generate, store, and process large-scale retail datasets for reporting and analysis.
 
-File:
+The project is designed for **portfolio building and job readiness (Data Entry / Junior Developer / Data Analyst roles).**
 
-    large_customers.csv
+---
 
-Records:
+## 🛠️ Tech Stack
 
-    5,000 Customers
+* Python 3
+* PostgreSQL
+* Pandas
+* Streamlit
+* psycopg2
+* Ubuntu (Linux environment)
+
+---
+
+## 📌 Step 1: Install Required Tools
+
+### Update system packages
+
+```bash
+sudo apt update
+```
+
+### Install Python and tools
+
+```bash
+sudo apt install python3 python3-pip python3-venv -y
+```
+
+### Install PostgreSQL
+
+```bash
+sudo apt install postgresql postgresql-contrib -y
+```
+
+### Install PostgreSQL development library
+
+```bash
+sudo apt install libpq-dev -y
+```
+
+---
+
+## 📌 Step 2: Configure PostgreSQL Database
+
+### Login to PostgreSQL
+
+```bash
+sudo -i -u postgres
+psql
+```
+
+### Create database and user
+
+```sql
+CREATE DATABASE retail_db;
+
+CREATE USER junior_dev WITH PASSWORD 'securepass';
+
+GRANT ALL PRIVILEGES ON DATABASE retail_db TO junior_dev;
+
+ALTER DATABASE retail_db OWNER TO junior_dev;
+```
+
+### Exit
+
+```bash
+\q
+exit
+```
+
+---
+
+## 📌 Step 3: Setup Python Environment
+
+### Create project folder
+
+```bash
+mkdir my_portfolio_project
+cd my_portfolio_project
+```
+
+### Create virtual environment
+
+```bash
+python3 -m venv venv
+```
+
+### Activate environment
+
+```bash
+source venv/bin/activate
+```
+
+### Install dependencies
+
+```bash
+pip install pandas psycopg2 streamlit
+```
+
+---
+
+## 📌 Step 4: Run the Project
+
+### Run database script
+
+```bash
+python create_db.py
+```
+
+### OR launch dashboard
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📊 Project Modules
+
+### 1️⃣ Data Generation Module
+
+Generates realistic retail datasets for analytics.
+
+#### 📁 Customers Dataset
+
+* File: `large_customers.csv`
+* Records: 5,000 customers
 
 Fields:
 
-    cust_id
-    name
-    signup_date
+* cust_id
+* name
+* signup_date
 
-Products Dataset
+---
 
-File:
+#### 📁 Products Dataset
 
-    large_products.json
-
-Records:
-
-    100 Products
+* File: `large_products.json`
+* Records: 100 products
 
 Fields:
 
-    prod_id
-    name
-    category
-    price
+* prod_id
+* name
+* category
+* price
 
-Orders Dataset
+---
 
-File:
+#### 📁 Orders Dataset
 
-    large_orders.csv
-
-Records:
-
-    50,000 Orders
+* File: `large_orders.csv`
+* Records: 50,000 orders
 
 Fields:
-    order_id
-    cust_id
-    prod_id
-    quantity
-    order_date
 
-**Key Concepts Demonstrated**
+* order_id
+* cust_id
+* prod_id
+* quantity
+* order_date
 
-    Random data generation
-    CSV file creation
-    JSON file creation
-    Data engineering fundamentals
+---
 
+## 🎯 Project Goals
 
-**2. Database Schema Design **
+* Practice real-world data handling
+* Learn PostgreSQL integration with Python
+* Build portfolio-ready project
+* Improve backend + analytics skills
 
-    Database:
+---
+## 📚 Key Concepts Demonstrated
 
-    retail_db
+* Random data generation
+* CSV file creation
+* JSON file creation
+* Data engineering fundamentals
 
-    Tables:
+---
 
-    Customers
+## 🗄️ Database Schema Design
+
+### Database
+
+`retail_db`
+
+### Customers Table
 
 Stores customer information.
 
+| Column      | Type    |
+| ----------- | ------- |
+| cust_id     | INT     |
+| name        | VARCHAR |
+| signup_date | DATE    |
 
-**Column	   Type**
-  cust_id	   INT
-  name	           VARCHAR
-  signup_date	   DATE
+### Products Table
 
-**Products**
+Stores product catalog information.
 
- Stores product catalog information.
+| Column   | Type    |
+| -------- | ------- |
+| prod_id  | INT     |
+| name     | VARCHAR |
+| category | VARCHAR |
+| price    | DECIMAL |
 
-**Column	       Type**
+### Orders Table
 
-    prod_id	       INT
-    name	       VARCHAR
-    category	       VARCHAR
-    price	       DECIMAL
+Stores transactional order information.
 
-**Orders**
+| Column     | Type |
+| ---------- | ---- |
+| order_id   | INT  |
+| cust_id    | INT  |
+| prod_id    | INT  |
+| quantity   | INT  |
+| order_date | DATE |
 
- Stores transactional order information.
+### Relationships
 
- ** Column	     Type**
+* orders.cust_id → customers.cust_id
+* orders.prod_id → products.prod_id
 
-    order_id	 INT
-    cust_id	     INT
-    prod_id	     INT
-    quantity	 INT
-    order_date	 DATE
+### Database Optimization
 
-Relationships
+Indexes created:
 
-  orders.cust_id → customers.cust_id
-  orders.prod_id → products.prod_id
+* idx_orders_date
+* idx_products_category
 
-Database Optimization
+#### Purpose
 
- Indexes created:
-    idx_orders_date
-    idx_products_category
+* Faster filtering
+* Faster analytical queries
+* Improved dashboard performance
 
-purpose:
+---
 
-      Faster filtering
-      Faster analytical queries
-      Improved dashboard performance
+## 🔄 ETL Pipeline
 
-**3.ETL Pipeline**
-  Objective
-    
-    Load large datasets into PostgreSQL efficiently.
+### Objective
 
-  Process
+Load large datasets into PostgreSQL efficiently.
 
-    step 1:
-    Load customer CSV data
+### Process
 
-    step 2:
-    Load product JSON data
+#### Step 1
 
-    step 3:
-    Load order CSV data
-  
-  Performance Optimization
-    
-    Used:
+Load customer CSV data
 
-    psycopg2.extras.execute_values()
+#### Step 2
 
-    Benefits:
-        Bulk inserts
-        Reduced database round trips
-        Significantly faster loading than row-by-row inserts
-    
-    Dataset Size
-        
-        5,000 Customers
-        100 Products
-        50,000 Orders
-     
-     Total Records Loaded:
-     55,100+
+Load product JSON data
 
+#### Step 3
 
-**4. Enterprise Analytics Dashboard Technology**
+Load order CSV data
 
-   Streamlit
+### Performance Optimization
 
-   Features
+Used:
 
-   KPI Cards
+```python
+psycopg2.extras.execute_values()
+```
 
-    Total Revenue
-    Total Orders
-    Average Order Value
+Benefits:
 
+* Bulk inserts
+* Reduced database round trips
+* Faster loading than row-by-row inserts
 
- **Interactive Filters**
+### Dataset Size
 
-   Filter by:
+| Dataset   | Records |
+| --------- | ------- |
+| Customers | 5,000   |
+| Products  | 100     |
+| Orders    | 50,000  |
 
-        Product Category
+### Total Records Loaded
 
-    Revenue Trend Analysis
+**55,100+ Records**
 
-     Line chart showing revenue over time.
+---
 
-    Category Performance Analysis
+## 📊 Enterprise Analytics Dashboard
 
-     Bar chart displaying revenue by product category.
-
-    Data Exploration
-     Interactive table displaying transaction-level records.
-
-
-**SQL Analytics Query**
-
-The dashboard uses SQL joins to combine information from multiple tables,
-
-Table Joined:
-    
-    customers
-    products
-    orders
-
-Calculate Metric:
-
-Revenue = Price × Quantity
-
-This demonstrates practical SQL skills and relational database design
-
-
-Skills Demonstrated
-
-**Python**
-
-    Functions
-    File handling
-    Data processing
-    Automation
-
-**PostgreSQL**
-
-    Database creation
-    Table design
-    Foreign keys
-    Indexes
-    SQL joins
-
-**Data Engineering**
-
-    ETL pipeline development
-    Bulk data loading
-    CSV and JSON processing 
-
-**Data Analytics**
-    KPI calculation
-    Aggregation
-    Trend analysis
+### Technology
 
 **Streamlit**
-    Interactive dashboard creation
-    User filters
-    Data visualization   
 
+### Features
 
-**Project Results**
+#### KPI Cards
+
+* Total Revenue
+* Total Orders
+* Average Order Value
+
+#### Interactive Filters
+
+Filter by:
+
+* Product Category
+
+#### Revenue Trend Analysis
+
+Line chart showing revenue over time.
+
+#### Category Performance Analysis
+
+Bar chart displaying revenue by product category.
+
+#### Data Exploration
+
+Interactive table displaying transaction-level records.
+
+---
+
+## 🧾 SQL Analytics Query
+
+The dashboard uses SQL joins to combine data from multiple tables.
+
+### Tables Joined
+
+* customers
+* products
+* orders
+
+### Calculated Metric
+
+```text
+Revenue = Price × Quantity
+```
+
+This demonstrates practical SQL skills and relational database design.
+
+---
+
+## 💡 Skills Demonstrated
+
+### Python
+
+* Functions
+* File handling
+* Data processing
+* Automation
+
+### PostgreSQL
+
+* Database creation
+* Table design
+* Foreign keys
+* Indexes
+* SQL joins
+
+### Data Engineering
+
+* ETL pipeline development
+* Bulk data loading
+* CSV processing
+* JSON processing
+
+### Data Analytics
+
+* KPI calculation
+* Aggregation
+* Trend analysis
+
+### Streamlit
+
+* Interactive dashboard creation
+* User filters
+* Data visualization
+
+---
+
+## 🎯 Project Results
 
 Successfully created:
 
-    5,000 customer records
-    100 product records
-    50,000 order records
-    Optimized PostgreSQL database
-    Automated ETL pipeline
-    Interactive business intelligence dashboard
+* 5,000 customer records
+* 100 product records
+* 50,000 order records
+* Optimized PostgreSQL database
+* Automated ETL pipeline
+* Interactive business intelligence dashboard
 
- This project simulates a real-world retail analytics environment and demonstrates skills commonly required for Data Analyst, Business Analyst, Data Engineer, and Python Developer roles.
+### Outcome
 
-**Future Enhancements**
+This project simulates a real-world retail analytics environment and demonstrates skills commonly required for:
 
-   Customer segmentation analysis
-   Product recommendation engine
-   Forecasting sales using machine learning
-   Real-time dashboard updates
-   User authentication system
-   Deployment on cloud platforms
+* Data Analyst
+* Business Analyst
+* Data Engineer
+* Python Developer
+
+---
+
+## 🚀 Future Enhancements
+
+* Customer segmentation analysis
+* Product recommendation engine
+* Sales forecasting using machine learning
+* Real-time dashboard updates
+* User authentication system
+* Cloud deployment
+
 
 
 Author
 
 Puma Maheshwari
 
-Retail Analytics & Data Engineering Portfolio Project
+
+## 📌 Note
+
+This project is continuously improving as part of my learning journey in data engineering and backend development.
+
+
+
+
+
 
